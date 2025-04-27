@@ -13,7 +13,7 @@ import QRCodeGenerator
 
 class QRTestTests: XCTestCase {
     func testBasic() throws {
-        let qr = try QRCode.encode(text: "Hello, world!", correctionLevel: .low)
+        let qr = try BCQRCode.encode(text: "Hello, world!", correctionLevel: .low)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -43,7 +43,7 @@ class QRTestTests: XCTestCase {
     
     func testVariety1() throws {
         // Numeric mode encoding (3.33 bits per digit)
-        let qr = try QRCode.encode(text: "314159265358979323846264338327950288419716939937510", correctionLevel: .medium)
+        let qr = try BCQRCode.encode(text: "314159265358979323846264338327950288419716939937510", correctionLevel: .medium)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬛️⬜️⬜️⬜️⬜️⬜️⬛️⬜️⬜️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -77,7 +77,7 @@ class QRTestTests: XCTestCase {
     
     func testVariety2() throws {
         // Alphanumeric mode encoding (5.5 bits per character)
-        let qr = try QRCode.encode(text: "DOLLAR-AMOUNT:$39.87 PERCENTAGE:100.00% OPERATIONS:+-*/", correctionLevel: .high)
+        let qr = try BCQRCode.encode(text: "DOLLAR-AMOUNT:$39.87 PERCENTAGE:100.00% OPERATIONS:+-*/", correctionLevel: .high)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬜️⬜️⬜️⬛️⬛️⬜️⬜️⬜️⬛️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -131,7 +131,7 @@ class QRTestTests: XCTestCase {
             0xB2, 0xCE, 0xB3, 0xCE, 0xB4
         ]
         let string = String(data: Data(bytes), encoding: .utf8)!
-        let qr = try QRCode.encode(text: string, correctionLevel: .quartile)
+        let qr = try BCQRCode.encode(text: string, correctionLevel: .quartile)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -174,7 +174,7 @@ class QRTestTests: XCTestCase {
     func testVariety4() throws {
         // Moderately large QR Code using longer text (from Lewis Carroll's Alice in Wonderland)
         let string = "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversations?' So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her."
-        let qr = try QRCode.encode(text: string, correctionLevel: .high)
+        let qr = try BCQRCode.encode(text: string, correctionLevel: .high)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬛️⬜️⬛️⬜️⬛️⬛️⬜️⬛️⬜️⬜️⬛️⬛️⬛️⬜️⬛️⬜️⬛️⬛️⬜️⬛️⬜️⬛️⬜️⬛️⬜️⬛️⬜️⬜️⬛️⬜️⬜️⬜️⬛️⬛️⬛️⬛️⬜️⬛️⬜️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬜️⬜️⬜️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬜️⬜️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬛️⬛️⬜️⬛️⬛️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -308,7 +308,7 @@ class QRTestTests: XCTestCase {
         // Illustration "silver"
         let silver0 = "THE SQUARE ROOT OF 2 IS 1."
         let silver1 = "41421356237309504880168872420969807856967187537694807317667973799"
-        let qr = try QRCode.encode(text: silver0 + silver1, correctionLevel: .low)
+        let qr = try BCQRCode.encode(text: silver0 + silver1, correctionLevel: .low)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬛️⬜️⬛️⬜️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -347,7 +347,7 @@ class QRTestTests: XCTestCase {
         """
         XCTAssertEqual(qr.emojiString, expected)
 
-        let qr2 = try QRCode.encode(
+        let qr2 = try BCQRCode.encode(
             segments: [
                 Segment.makeAlphanumeric(text: silver0),
                 Segment.makeNumeric(digits: silver1)
@@ -392,7 +392,7 @@ class QRTestTests: XCTestCase {
         let golden0 = "Golden ratio φ = 1."
         let golden1 = "6180339887498948482045868343656381177203091798057628621354486227052604628189024497072072041893911374"
         let golden2 = "......"
-        let qr = try QRCode.encode(text: golden0 + golden1 + golden2, correctionLevel: .low)
+        let qr = try BCQRCode.encode(text: golden0 + golden1 + golden2, correctionLevel: .low)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -439,7 +439,7 @@ class QRTestTests: XCTestCase {
         """
         XCTAssertEqual(qr.emojiString, expected)
 
-        let qr2 = try QRCode.encode(
+        let qr2 = try BCQRCode.encode(
             segments: [
                 Segment.makeBytes(data: golden0),
                 Segment.makeNumeric(digits: golden1),
@@ -491,7 +491,7 @@ class QRTestTests: XCTestCase {
             0xE3, 0x80, 0x8C, 0xE9, 0xAD, 0x94, 0xE6, 0xB3, 0x95, 0xE5, 0xB0, 0x91, 0xE5, 0xA5, 0xB3, 0xE3, 0x81, 0xBE, 0xE3, 0x81, 0xA9, 0xE3, 0x81, 0x8B, 0xE2, 0x98, 0x86, 0xE3, 0x83, 0x9E, 0xE3, 0x82, 0xAE, 0xE3, 0x82, 0xAB, 0xE3, 0x80, 0x8D, 0xE3, 0x81, 0xA3, 0xE3, 0x81, 0xA6, 0xE3, 0x80, 0x81, 0xE3, 0x80, 0x80, 0xD0, 0x98, 0xD0, 0x90, 0xD0, 0x98, 0xE3, 0x80, 0x80, 0xEF, 0xBD, 0x84, 0xEF, 0xBD, 0x85, 0xEF, 0xBD, 0x93, 0xEF, 0xBD, 0x95, 0xE3, 0x80, 0x80, 0xCE, 0xBA, 0xCE, 0xB1, 0xEF, 0xBC, 0x9F
         ]
         let string = String(data: Data(bytes), encoding: .utf8)!
-        let qr = try QRCode.encode(text: string, correctionLevel: .low)
+        let qr = try BCQRCode.encode(text: string, correctionLevel: .low)
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬛️⬛️⬛️⬜️⬛️⬛️⬜️⬛️⬛️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -552,7 +552,7 @@ class QRTestTests: XCTestCase {
         }
         // let string = String(utf16CodeUnits: chars, count: chars.count)
         // print(string)
-        let qr = try QRCode.encode(
+        let qr = try BCQRCode.encode(
             segments: [
                 Segment(mode: .kanji, characterCount: chars.count, data: bb)
             ], correctionLevel: .low)
@@ -597,7 +597,7 @@ class QRTestTests: XCTestCase {
         // Project Nayuki URL
         let segs0 = try Segment.makeSegments(text: "https://www.nayuki.io/")
 
-        let qr = try QRCode.encode(segments: segs0, correctionLevel: .high, mask: nil)  // Automatic mask
+        let qr = try BCQRCode.encode(segments: segs0, correctionLevel: .high, mask: nil)  // Automatic mask
         let expected =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬛️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -632,7 +632,7 @@ class QRTestTests: XCTestCase {
         """
         XCTAssertEqual(qr.emojiString, expected)
         
-        let qr2 = try QRCode.encode(segments: segs0, correctionLevel: .high, mask: 3)  // Force mask 3
+        let qr2 = try BCQRCode.encode(segments: segs0, correctionLevel: .high, mask: 3)  // Force mask 3
         let expected2 =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬜️⬛️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -677,7 +677,7 @@ class QRTestTests: XCTestCase {
         let string = String(data: Data(bytes), encoding: .utf8)!
         let segs1 = try Segment.makeSegments(text: string)
         
-        let qr0 = try QRCode.encode(segments: segs1, correctionLevel: .medium, mask: 0) // Force mask 0
+        let qr0 = try BCQRCode.encode(segments: segs1, correctionLevel: .medium, mask: 0) // Force mask 0
         let expected0 =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬜️⬛️⬛️⬛️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -732,7 +732,7 @@ class QRTestTests: XCTestCase {
         """
         XCTAssertEqual(qr0.emojiString, expected0)
 
-        let qr1 = try QRCode.encode(segments: segs1, correctionLevel: .medium, mask: 1) // Force mask 1
+        let qr1 = try BCQRCode.encode(segments: segs1, correctionLevel: .medium, mask: 1) // Force mask 1
         let expected1 =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬛️⬜️⬛️⬜️⬛️⬛️⬛️⬜️⬜️⬛️⬛️⬛️⬜️⬛️⬛️⬜️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -787,7 +787,7 @@ class QRTestTests: XCTestCase {
         """
         XCTAssertEqual(qr1.emojiString, expected1)
 
-        let qr5 = try QRCode.encode(segments: segs1, correctionLevel: .medium, mask: 5) // Force mask 5
+        let qr5 = try BCQRCode.encode(segments: segs1, correctionLevel: .medium, mask: 5) // Force mask 5
         let expected5 =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬜️⬜️⬛️⬛️⬜️⬛️⬜️⬛️⬛️⬛️⬜️⬜️⬛️⬛️⬛️⬜️⬛️⬛️⬜️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️
@@ -842,7 +842,7 @@ class QRTestTests: XCTestCase {
         """
         XCTAssertEqual(qr5.emojiString, expected5)
 
-        let qr7 = try QRCode.encode(segments: segs1, correctionLevel: .medium, mask: 7) // Force mask 7
+        let qr7 = try BCQRCode.encode(segments: segs1, correctionLevel: .medium, mask: 7) // Force mask 7
         let expected7 =
         """
         ⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬜️⬜️⬜️⬜️⬛️⬜️⬛️⬛️⬜️⬜️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬜️⬛️⬛️⬛️⬜️⬜️⬜️⬛️⬜️⬜️⬛️⬛️⬛️⬜️⬜️⬛️⬜️⬛️⬛️⬛️⬛️⬛️⬛️⬛️

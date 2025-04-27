@@ -40,7 +40,7 @@ import SwiftUI
  *   supply the appropriate version number, and call the QRCode() constructor.
  * (Note that all ways require supplying the desired error correction level.)
  */
-public struct QRCode {
+public struct BCQRCode {
     // MARK: - Instance fields
     
     // Immutable scalar parameters:
@@ -128,7 +128,7 @@ public struct QRCode {
      * QR Code version is automatically chosen for the output. The ECC level of the result may be higher than
      * the ecl argument if it can be done without increasing the version.
      */
-    public static func encode(text: String, correctionLevel: CorrectionLevel = .medium, minVersion: Int = 1, maxVersion: Int = 40, mask: Int? = nil, boostEcl: Bool = true, optimize: Bool = false) throws -> QRCode {
+    public static func encode(text: String, correctionLevel: CorrectionLevel = .medium, minVersion: Int = 1, maxVersion: Int = 40, mask: Int? = nil, boostEcl: Bool = true, optimize: Bool = false) throws -> BCQRCode {
         let segments = try Segment.makeText(text: text, correctionLevel: correctionLevel, minVersion: minVersion, maxVersion: maxVersion, optimize: optimize)
         return try encode(segments: segments, correctionLevel: correctionLevel, minVersion: minVersion, maxVersion: maxVersion, mask: mask, boostEcl: boostEcl)
     }
@@ -144,7 +144,7 @@ public struct QRCode {
      * bytes allowed is 2953. The smallest possible QR Code version is automatically chosen for the output.
      * The ECC level of the result may be higher than the ecl argument if it can be done without increasing the version.
      */
-    public static func encode(data: [UInt8], correctionLevel: CorrectionLevel = .medium, minVersion: Int = 1, maxVersion: Int = 40, mask: Int? = nil, boostEcl: Bool = true) throws -> QRCode {
+    public static func encode(data: [UInt8], correctionLevel: CorrectionLevel = .medium, minVersion: Int = 1, maxVersion: Int = 40, mask: Int? = nil, boostEcl: Bool = true) throws -> BCQRCode {
         let segment = try Segment.makeBytes(data: data)
         return try encode(segments: [segment], correctionLevel: correctionLevel, minVersion: minVersion, maxVersion: maxVersion, mask: mask, boostEcl: boostEcl)
     }
@@ -203,7 +203,7 @@ public struct QRCode {
      * between modes (such as alphanumeric and byte) to encode text in less space.
      * This is a mid-level API; the high-level API is encodeText() and encodeBinary().
      */
-    public static func encode(segments: [Segment], correctionLevel: CorrectionLevel = .medium, minVersion: Int = 1, maxVersion: Int = 40, mask: Int? = nil, boostEcl: Bool = true) throws -> QRCode {
+    public static func encode(segments: [Segment], correctionLevel: CorrectionLevel = .medium, minVersion: Int = 1, maxVersion: Int = 40, mask: Int? = nil, boostEcl: Bool = true) throws -> BCQRCode {
         let info = try Self.getInfo(segments: segments, correctionLevel: correctionLevel, minVersion: minVersion, maxVersion: maxVersion)
 
         let dataUsedBits = info.dataUsedBits
@@ -247,7 +247,7 @@ public struct QRCode {
         }
         
         // Create the QR Code object
-        return try QRCode(version: version, correctionLevel: ecl, dataCodewords: dataCodewords, mask: mask)
+        return try BCQRCode(version: version, correctionLevel: ecl, dataCodewords: dataCodewords, mask: mask)
     }
     
     static func checkVersion(minVersion: Int, maxVersion: Int) throws {

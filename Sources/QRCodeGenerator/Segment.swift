@@ -373,7 +373,7 @@ public struct Segment {
      * range of versions, like `QRCode.encode(segments:correctionLevel:minVersion:maxVersion:mask:booscEcl:)`.
      */
     public static func makeSegmentsOptimally(text: String, correctionLevel: CorrectionLevel = .medium, minVersion: Int = 1, maxVersion: Int = 40) throws -> [Segment] {
-        try QRCode.checkVersion(minVersion: minVersion, maxVersion: maxVersion)
+        try BCQRCode.checkVersion(minVersion: minVersion, maxVersion: maxVersion)
         
         // Iterate through version numbers, and make tentative segments
         var segs: [Segment]!
@@ -389,7 +389,7 @@ public struct Segment {
             precondition(segs != nil)
             
             // Check if the segments fit
-            let dataCapacityBits = QRCode.dataCapacityBits(version, correctionLevel)
+            let dataCapacityBits = BCQRCode.dataCapacityBits(version, correctionLevel)
             let dataUsedBits = Segment.getTotalBits(segs, version)
             if dataUsedBits != -1 && dataUsedBits <= dataCapacityBits {
                 return segs  // This version number is found to be suitable
