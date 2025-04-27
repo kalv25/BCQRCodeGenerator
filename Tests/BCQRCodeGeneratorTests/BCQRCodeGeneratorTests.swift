@@ -9,9 +9,9 @@
 //
 
 import XCTest
-import QRCodeGenerator
+import BCQRCodeGenerator
 
-class QRTestTests: XCTestCase {
+class BCQRTestTests: XCTestCase {
     func testBasic() throws {
         let qr = try BCQRCode.encode(text: "Hello, world!", correctionLevel: .low)
         let expected =
