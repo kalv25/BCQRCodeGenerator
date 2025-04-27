@@ -3,22 +3,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "QRCodeGenerator",
+    name: "BCQRCodeGenerator",
     platforms: [
         .macOS(.v11),
         .iOS(.v14)
     ],
     products: [
         .library(
-            name: "QRCodeGenerator",
-            targets: ["QRCodeGenerator"]),
+            name: "BCQRCodeGenerator",
+            targets: ["BCQRCodeGenerator"]),
     ],
     targets: [
         .target(
-            name: "QRCodeGenerator",
+            name: "BCQRCodeGenerator",
             dependencies: []),
         .testTarget(
-            name: "QRCodeGeneratorTests",
-            dependencies: ["QRCodeGenerator"]),
+            name: "BCQRCodeGeneratorTests",
+            dependencies: ["BCQRCodeGenerator"]),
     ]
 )
